@@ -26,11 +26,12 @@ def info(address: str):
         .format(address, status.players.online, status.latency)
         if status.players.online != 0:
             query = minecraft_server.query()
-            response += "\n\nThe server has the following players online: {}"\
+            response += "\nThe server has the following players online: \n {}"\
             .format("\n ".join(query.players.names))
     except IOError:
-        response = "The server {} is off or it doesn't exist".format(address)
-    return response
+        response = "{} is off, has queries disabled or it doesn't exist".format(address)
+    finally:
+        return response
 
 try:
     with open("token.txt", "r") as f:
